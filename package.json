@@ -1,0 +1,29 @@
+{
+  "name": "vtt-adjust",
+  "version": "1.0.0",
+  "description": "Move and scale all timecodes in a WebVTT file.",
+  "main": "index.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/deestan/vtt-adjust.git"
+  },
+  "keywords": [
+    "webvtt",
+    "vtt",
+    "adjust"
+  ],
+  "author": "Helge S Holm",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/deestan/vtt-adjust/issues"
+  },
+  "homepage": "https://github.com/deestan/vtt-adjust",
+  "dependencies": {
+  }
+}
