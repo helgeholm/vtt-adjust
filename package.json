@@ -24,6 +24,7 @@
     "url": "https://github.com/deestan/vtt-adjust/issues"
   },
   "homepage": "https://github.com/deestan/vtt-adjust",
-  "dependencies": {
+  "devDependencies": {
+    "mocha": "^2.2.5"
   }
 }
