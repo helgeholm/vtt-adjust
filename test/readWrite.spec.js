@@ -8,4 +8,10 @@ describe("read and write", function() {
     var vttOut = write(read(vtt));
     assert.equal(vtt, vttOut);
   });
+
+  it("leaves multiline cues as they were", function() {
+    var vtt = "\ufeffWEBVTT\n\n1\n00:00:15.000 --> 00:00:18.000 align:start\n<v Doop>Hello there...</v>\n\nNOTE testing notes\n\n00:00:18.167 --> 00:00:20.083\nHello!\n there!";
+    var vttOut = write(read(vtt));
+    assert.equal(vtt, vttOut);
+  });
 });

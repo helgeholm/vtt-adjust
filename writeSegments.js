@@ -29,7 +29,7 @@ function cueToString(cue) {
   if (cue.settings.length)
     str += ' ' + cue.settings;
   str += '\n';
-  str += cue.rest;
+  str += cue.rest.join('\n');
 
   return str;
 }
