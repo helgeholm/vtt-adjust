@@ -1,6 +1,6 @@
 function move(cues, referenceCue) {
   var oldCue = null;
-  cues.forEach(function() {
+  cues.forEach(function(cue) {
     if (cue.index == referenceCue.index)
       oldCue = cue;
   });
@@ -25,7 +25,7 @@ function moveAndScale(cues, refCue1, refCue2) {
     throw new Error('Reference cues point to same cue.');
 
   var oldCue1 = null, oldCue2 = null;
-  cues.forEach(function() {
+  cues.forEach(function(cue) {
     if (cue.index == refCue1.index)
       oldCue1 = cue;
     if (cue.index == refCue2.index)
