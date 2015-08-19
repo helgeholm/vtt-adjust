@@ -32,4 +32,14 @@ describe("move", function() {
     adjust.move(data.cues, cue1);
     assert.equal(write(data), output);
   });
+
+  it("can move backwards", function() {
+    var input = fs.readFileSync("test/data/simple+5s.vtt").toString();
+    var output = fs.readFileSync("test/data/simple.vtt").toString();
+    var data = read(input);
+    var cue1 = JSON.parse(JSON.stringify(data.cues[0]));
+    cue1.start -= 5000;
+    adjust.move(data.cues, cue1);
+    assert.equal(write(data), output);
+  });
 });
