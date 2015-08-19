@@ -39,10 +39,11 @@ function moveAndScale(cues, refCue1, refCue2) {
   var moveDiff = refCue1.start - oldCue1.start;
   var cue2StartMoved = oldCue2.start + moveDiff;
   var scaleDiff = refCue2.start - cue2StartMoved;
-  var scaleMsPerMs = scaleDiff / (cue2StartMoved - refCue1.start);
-  
+  var scaleMsPerMs = scaleDiff / (oldCue2.start - oldCue1.start);
+
+  var oldCue1Start = oldCue1.start;
   cues.forEach(function(cue) {
-    var diff = moveDiff + (cue.start - oldCue1.start) * scaleMsPerMs;
+    var diff = moveDiff + (cue.start - oldCue1Start) * scaleMsPerMs;
     cue.start += diff;
     cue.end += diff;
   });
