@@ -18,7 +18,17 @@ describe("move", function() {
     var output = fs.readFileSync("test/data/simple+5s.vtt").toString();
     var data = read(input);
     var cue1 = JSON.parse(JSON.stringify(data.cues[0]));
-    cue1.start = 15000;
+    cue1.start += 5000;
+    adjust.move(data.cues, cue1);
+    assert.equal(write(data), output);
+  });
+
+  it("can move with last cue as ref", function() {
+    var input = fs.readFileSync("test/data/simple.vtt").toString();
+    var output = fs.readFileSync("test/data/simple+5s.vtt").toString();
+    var data = read(input);
+    var cue1 = JSON.parse(JSON.stringify(data.cues[2]));
+    cue1.start += 5000;
     adjust.move(data.cues, cue1);
     assert.equal(write(data), output);
   });
