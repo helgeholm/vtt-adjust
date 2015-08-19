@@ -44,4 +44,16 @@ describe("move and scale", function() {
     adjust.moveAndScale(data.cues, cue1, cue3);
     assert.equal(write(data), output);
   });
+
+  it("can scale and move into simpler+10s-scaleup result, different ref", function() {
+    var input = fs.readFileSync("test/data/simpler.vtt").toString();
+    var output = fs.readFileSync("test/data/simpler+10s-scaleup.vtt").toString();
+    var data = read(input);
+    var cue1 = JSON.parse(JSON.stringify(data.cues[0]));
+    cue1.start = 20*1000;
+    var cue2 = JSON.parse(JSON.stringify(data.cues[1]));
+    cue2.start = 100*1000;
+    adjust.moveAndScale(data.cues, cue1, cue2);
+    assert.equal(write(data), output);
+  });
 });
