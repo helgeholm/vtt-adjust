@@ -22,4 +22,14 @@ describe("move and scale", function() {
     adjust.moveAndScale(data.cues, data.cues[0], cue3);
     assert.equal(write(data), output);
   });
+
+  it("can scale down and not move", function() {
+    var input = fs.readFileSync("test/data/simpler.vtt").toString();
+    var output = fs.readFileSync("test/data/simpler-scaledown.vtt").toString();
+    var data = read(input);
+    var cue3 = JSON.parse(JSON.stringify(data.cues[2]));
+    cue3.start -= 10000;
+    adjust.moveAndScale(data.cues, data.cues[0], cue3);
+    assert.equal(write(data), output);
+  });
 });
