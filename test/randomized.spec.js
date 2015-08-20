@@ -12,18 +12,26 @@ var randy = require('randy');
 var iterations = 100;
 
 function cp(obj) { return JSON.parse(JSON.stringify(obj)); }
+function range(n) {
+  var r=[];
+  for (var i=0; i < n; r.push(i++));
+  return r;
+}
 
 describe("randomized move", function() {
   var input = fs.readFileSync("test/data/biggish.vtt").toString();
+  var data = read(input);
+  var origCues;
+
+  beforeEach(function() {
+      origCues = data.cues.map(cp);
+  });
 
   it("can move a random cue a random amount", function() {
     this.slow(500);
     for (var i=0; i < iterations; i++) {
-      var cueIdx = randy.randInt(3);
       var moveDist = randy.randInt(1, 10000);
-      var data = read(input);
-      var origCues = data.cues.map(cp);
-      var movedCue = cp(origCues[cueIdx]);
+      var movedCue = cp(randy.choice(origCues));
       movedCue.start += moveDist;
       adjust.move(data.cues, movedCue);
       var data2 = read(write(data));
@@ -37,20 +45,20 @@ describe("randomized move", function() {
   it("can scale a random cue by a random amount", function() {
     this.slow(500);
     for (var i=0; i < iterations; i++) {
-      var sCueIdx = randy.randInt(1, 3);
+      var refCues = randy.sample(range(origCues.length), 2);
       var scaleDist = randy.randInt(1, 10000);
-      var data = read(input);
-      var origCues = data.cues.map(cp);
-      var scaledCue = cp(origCues[sCueIdx]);
-      scaledCue.start += scaleDist;
-      adjust.moveAndScale(data.cues, origCues[0], scaledCue);
+      var moveCue = origCues[refCues[0]];
+      var scaleCue = cp(origCues[refCues[1]]);
+      scaleCue.start += scaleDist;
+      adjust.moveAndScale(data.cues, moveCue, scaleCue);
       var data2 = read(write(data));
-      assert.equal(data2.cues[0].start, origCues[0].start);
-      assert.equal(data2.cues[0].end, origCues[0].end);
-      assert.equal(data2.cues[sCueIdx].start,
-                   origCues[sCueIdx].start + scaleDist);
-      assert.equal(data2.cues[sCueIdx].end,
-                   origCues[sCueIdx].end + scaleDist);
+      console.log(refCues);
+      assert.equal(data2.cues[refCues[0]].start, origCues[refCues[0]].start);
+      assert.equal(data2.cues[refCues[0]].end, origCues[refCues[0]].end);
+      assert.equal(data2.cues[refCues[1]].start,
+                   origCues[refCues[1]].start + scaleDist);
+      assert.equal(data2.cues[refCues[1]].end,
+                   origCues[refCues[1]].end + scaleDist);
     }
   });
 });
