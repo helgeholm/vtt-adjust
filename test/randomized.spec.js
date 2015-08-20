@@ -60,12 +60,19 @@ describe("randomized move", function() {
       });
 
       var data2 = read(write(data));
-      assert.equal(data2.cues[refCues[0]].start, origCues[refCues[0]].start);
-      assert.equal(data2.cues[refCues[0]].end, origCues[refCues[0]].end);
+
+      assert.equal(data2.cues[refCues[0]].start,
+                   origCues[refCues[0]].start,
+                   'anchor start');
+      assert.equal(data2.cues[refCues[0]].end,
+                   origCues[refCues[0]].end,
+                   'anchor end');
       assert.equal(data2.cues[refCues[1]].start,
-                   origCues[refCues[1]].start + scaleDist);
+                   origCues[refCues[1]].start + scaleDist,
+                   'scale start');
       assert.equal(data2.cues[refCues[1]].end,
-                   origCues[refCues[1]].end + scaleDist);
+                   origCues[refCues[1]].end + scaleDist,
+                   'scale end');
     }
   });
 });
