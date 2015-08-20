@@ -47,6 +47,7 @@ describe("randomized move", function() {
     for (var i=0; i < iterations; i++) {
       var refCues = randy.sample(range(origCues.length), 2);
       var scaleDist = randy.randInt(1, 10000);
+
       var moveCue = cp(origCues[refCues[0]]);
       var scaleCue = cp(origCues[refCues[1]]);
       scaleCue.start += scaleDist;
@@ -60,6 +61,9 @@ describe("randomized move", function() {
       });
 
       var data2 = read(write(data));
+
+      // Reset test data
+      data.cues = cp(origCues);
 
       var err = JSON.stringify({refs: refCues, dist: scaleDist});
 
