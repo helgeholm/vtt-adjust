@@ -47,12 +47,19 @@ describe("randomized move", function() {
     for (var i=0; i < iterations; i++) {
       var refCues = randy.sample(range(origCues.length), 2);
       var scaleDist = randy.randInt(1, 10000);
-      var moveCue = origCues[refCues[0]];
+      var moveCue = cp(origCues[refCues[0]]);
       var scaleCue = cp(origCues[refCues[1]]);
       scaleCue.start += scaleDist;
       adjust.moveAndScale(data.cues, moveCue, scaleCue);
+
+      // Truncate any timestamps that we've moved below 0, since that's
+      // expected to happen, and they're outside the test scope.
+      data.cues.forEach(function(cue) {
+        if (cue.start < 0) cue.start = 0;
+        if (cue.end < 0) cue.end = 0;
+      });
+
       var data2 = read(write(data));
-      console.log(refCues);
       assert.equal(data2.cues[refCues[0]].start, origCues[refCues[0]].start);
       assert.equal(data2.cues[refCues[0]].end, origCues[refCues[0]].end);
       assert.equal(data2.cues[refCues[1]].start,
