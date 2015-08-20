@@ -6,6 +6,8 @@ function timestampToStr(timestamp) {
       val = "0" + val;
     return val;
   }
+
+  timestamp = timestamp >> 0;
   
   var S = 1000;
   var M = S * 60;
