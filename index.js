@@ -27,19 +27,22 @@ module.exports = function readString(vtt) {
     if (typeof cueId == 'object')
       cueId = cueId.id;
     setObjectSpent();
-    var anchor = data.cues[cueId];
+    var anchor = cp(data.cues[cueId]);
+    anchor.start = newStartMs;
     adjust.move(data.cues, anchor);
   }
   
-  function moveAndScale(cueId1, cueId2, newStartMs) {
+  function moveAndScale(cueId1, newStartMs1, cueId2, newStartMs2) {
     if (typeof cueId1 == 'object')
       cueId1 = cueId1.id;
     if (typeof cueId2 == 'object')
       cueId2 = cueId2.id;
     setObjectSpent();
-    var anchor = data.cues[cueId1];
-    var scaleRef = data.cues[cueId2];
-    adjust.move(data.cues, anchor, scaleRef);
+    var anchor = cp(data.cues[cueId1]);
+    anchor.start = newStartMs1;
+    var scaleRef = cp(data.cues[cueId2]);
+    scaleRef.start = newStartMs2;
+    adjust.moveAndScale(data.cues, anchor, scaleRef);
   }
 
   function toString() {
