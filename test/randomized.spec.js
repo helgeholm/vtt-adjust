@@ -46,7 +46,7 @@ describe("randomized move", function() {
     this.slow(500);
     for (var i=0; i < iterations; i++) {
       var refCues = randy.sample(range(origCues.length), 2);
-      var scaleDist = randy.randInt(1, 10000);
+      var scaleDist = randy.randInt(-10000, 10000);
 
       var moveCue = cp(origCues[refCues[0]]);
       var scaleCue = cp(origCues[refCues[1]]);
