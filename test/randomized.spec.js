@@ -28,8 +28,8 @@ describe("randomized move", function() {
       adjust.move(data.cues, movedCue);
       var data2 = read(write(data));
       for (var j=0; j < data2.cues.length; j++) {
-        assert(data2.cues[j].start == origCues[j].start + moveDist);
-        assert(data2.cues[j].end == origCues[j].end + moveDist);
+        assert.equal(data2.cues[j].start, origCues[j].start + moveDist);
+        assert.equal(data2.cues[j].end, origCues[j].end + moveDist);
       }
     }
   });
