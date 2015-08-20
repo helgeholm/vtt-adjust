@@ -14,4 +14,13 @@ describe("read and write", function() {
     var vttOut = write(read(vtt));
     assert.equal(vtt, vttOut);
   });
+
+  it("truncates milliseconds to integers", function() {
+    var vtt = "\ufeffWEBVTT\n\n00:00:15.000 --> 00:00:18.000\nHello!";
+    var data = read(vtt);
+    data.cues[0].start += 0.9;
+    data.cues[0].end += 0.1;
+    var vttOut = write(data);
+    assert.equal(vtt, vttOut);
+  });
 });
