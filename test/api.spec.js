@@ -43,7 +43,7 @@ describe("vtt-adjust API", function() {
     var output = adjuster.toString();
     assert.equal(
       output,
-      "WEBVTT\n\n00:00:00.000 --> 00:00:05.000\nHello\n\n00:00:15.000 --> 00:00:20.000\nHallo\n\n00:00:30.000 --> 00:00:35.000\nHullo"
+      "WEBVTT\n\n00:00:00.000 --> 00:00:07.500\nHello\n\n00:00:15.000 --> 00:00:22.500\nHallo\n\n00:00:30.000 --> 00:00:37.500\nHullo"
     );
   });
 });

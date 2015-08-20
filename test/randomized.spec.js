@@ -70,15 +70,9 @@ describe("randomized move", function() {
       assert.equal(data2.cues[refCues[0]].start,
                    origCues[refCues[0]].start,
                    'anchor start: ' + err);
-      assert.equal(data2.cues[refCues[0]].end,
-                   origCues[refCues[0]].end,
-                   'anchor end: ' + err);
       assert.equal(data2.cues[refCues[1]].start,
                    origCues[refCues[1]].start + scaleDist,
                    'scale start ' + err);
-      assert.equal(data2.cues[refCues[1]].end,
-                   origCues[refCues[1]].end + scaleDist,
-                   'scale end ' + err);
     }
   });
 
@@ -112,15 +106,9 @@ describe("randomized move", function() {
       assert.equal(data2.cues[refCues[0]].start,
                    origCues[refCues[0]].start + moveDist,
                    'anchor start: ' + err);
-      assert.equal(data2.cues[refCues[0]].end,
-                   origCues[refCues[0]].end + moveDist,
-                   'anchor end: ' + err);
       assert.equal(data2.cues[refCues[1]].start,
                    origCues[refCues[1]].start + scaleDist,
                    'scale start ' + err);
-      assert.equal(data2.cues[refCues[1]].end,
-                   origCues[refCues[1]].end + scaleDist,
-                   'scale end ' + err);
     }
   });
 });
