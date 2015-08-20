@@ -14,7 +14,7 @@ var iterations = 100;
 function cp(obj) { return JSON.parse(JSON.stringify(obj)); }
 
 describe("randomized move", function() {
-  var input = fs.readFileSync("test/data/simple.vtt").toString();
+  var input = fs.readFileSync("test/data/biggish.vtt").toString();
 
   it("can move a random cue a random amount", function() {
     this.slow(500);
