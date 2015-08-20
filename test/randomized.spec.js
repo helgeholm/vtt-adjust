@@ -33,4 +33,24 @@ describe("randomized move", function() {
       }
     }
   });
+
+  it("can scale a random cue by a random amount", function() {
+    this.slow(500);
+    for (var i=0; i < iterations; i++) {
+      var sCueIdx = randy.randInt(1, 3);
+      var scaleDist = randy.randInt(1, 10000);
+      var data = read(input);
+      var origCues = data.cues.map(cp);
+      var scaledCue = cp(origCues[sCueIdx]);
+      scaledCue.start += scaleDist;
+      adjust.moveAndScale(data.cues, origCues[0], scaledCue);
+      var data2 = read(write(data));
+      assert.equal(data2.cues[0].start, origCues[0].start);
+      assert.equal(data2.cues[0].end, origCues[0].end);
+      assert.equal(data2.cues[sCueIdx].start,
+                   origCues[sCueIdx].start + scaleDist);
+      assert.equal(data2.cues[sCueIdx].end,
+                   origCues[sCueIdx].end + scaleDist);
+    }
+  });
 });
