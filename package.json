@@ -25,6 +25,7 @@
   },
   "homepage": "https://github.com/deestan/vtt-adjust",
   "devDependencies": {
+    "browserify": "^11.0.1",
     "mocha": "^2.2.5",
     "randy": "^1.5.1"
   }
