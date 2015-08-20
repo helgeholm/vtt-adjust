@@ -61,18 +61,20 @@ describe("randomized move", function() {
 
       var data2 = read(write(data));
 
+      var err = JSON.stringify({refs: refCues, dist: scaleDist});
+
       assert.equal(data2.cues[refCues[0]].start,
                    origCues[refCues[0]].start,
-                   'anchor start');
+                   'anchor start: ' + err);
       assert.equal(data2.cues[refCues[0]].end,
                    origCues[refCues[0]].end,
-                   'anchor end');
+                   'anchor end: ' + err);
       assert.equal(data2.cues[refCues[1]].start,
                    origCues[refCues[1]].start + scaleDist,
-                   'scale start');
+                   'scale start ' + err);
       assert.equal(data2.cues[refCues[1]].end,
                    origCues[refCues[1]].end + scaleDist,
-                   'scale end');
+                   'scale end ' + err);
     }
   });
 });
