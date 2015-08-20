@@ -1,6 +1,6 @@
 var assert = require('assert');
-var read = require('../readSegments');
-var write = require('../writeSegments');
+var read = require('../lib/readSegments');
+var write = require('../lib/writeSegments');
 
 describe("read and write", function() {
   it("writes normalized read data unchanged", function() {

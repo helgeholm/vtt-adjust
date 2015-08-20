@@ -1,6 +1,6 @@
-var adjust = require('../adjust');
-var read = require('../readSegments');
-var write = require('../writeSegments');
+var adjust = require('../lib/adjust');
+var read = require('../lib/readSegments');
+var write = require('../lib/writeSegments');
 
 var fs = require('fs');
 var assert = require('assert');
