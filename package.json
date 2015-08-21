@@ -1,6 +1,6 @@
 {
   "name": "vtt-adjust",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Move and scale all timecodes in a WebVTT file.",
   "main": "index.js",
   "directories": {
