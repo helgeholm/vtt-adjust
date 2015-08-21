@@ -18,4 +18,11 @@ describe("vtt-adjust API sanity handling", function() {
       adjuster.move(adjuster.cues[1], 20000, adjuster.cues[2], 600000);
     }, /negative/);
   });
+
+  it("rejects moveAndScale() with same cue used as both refs", function() {
+    var adjuster = api(testData);
+    assert.throws(function() {
+      adjuster.move(adjuster.cues[1], 20000, adjuster.cues[1], 600000);
+    }, /same/);
+  });
 });
