@@ -46,4 +46,25 @@ describe("vtt-adjust API", function() {
       "WEBVTT\n\n00:00:00.000 --> 00:00:07.500\nHello\n\n00:00:15.000 --> 00:00:22.500\nHallo\n\n00:00:30.000 --> 00:00:37.500\nHullo"
     );
   });
+
+  it("can move and move back with same adjuster instance", function() {
+    var adjuster = api(testData);
+    adjuster.move(adjuster.cues[0], 20000);
+    adjuster.move(adjuster.cues[0], 10000);
+    assert.equal(adjuster.toString(), testData);
+  });
+
+  it("can scale and scale back with same adjuster instance", function() {
+    var adjuster = api(testData);
+    adjuster.moveAndScale(adjuster.cues[0], 10000, adjuster.cues[1], 40000);
+    adjuster.moveAndScale(adjuster.cues[0], 10000, adjuster.cues[1], 20000);
+    assert.equal(adjuster.toString(), testData);
+  });
+
+  it("can move-scale and move-scale back with same adjuster instance", function() {
+    var adjuster = api(testData);
+    adjuster.moveAndScale(adjuster.cues[0], 20000, adjuster.cues[1], 40000);
+    adjuster.moveAndScale(adjuster.cues[0], 10000, adjuster.cues[1], 20000);
+    assert.equal(adjuster.toString(), testData);
+  });
 });
