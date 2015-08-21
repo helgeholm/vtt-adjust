@@ -34,8 +34,6 @@ module.exports = function readString(vtt) {
       cueId1 = cueId1.id;
     if (typeof cueId2 == 'object')
       cueId2 = cueId2.id;
-    if (cueId1 == cueId2)
-      throw new Error("Reference cues must be different; cannot have the same id.");
     var anchor = cp(data.cues[cueId1]);
     anchor.start = newStartMs1;
     var scaleRef = cp(data.cues[cueId2]);
