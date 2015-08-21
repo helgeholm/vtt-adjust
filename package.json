@@ -7,7 +7,8 @@
     "test": "test"
   },
   "scripts": {
-    "test": "node_modules/mocha/bin/mocha"
+    "test": "node_modules/mocha/bin/mocha",
+    "prepublish": "node_modules/browserify/bin/cmd.js web.js -o build/vttAdjust.js"
   },
   "repository": {
     "type": "git",
