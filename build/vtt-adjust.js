@@ -58,6 +58,10 @@ module.exports = function readString(vtt) {
 }
 
 },{"./lib/adjust":2,"./lib/readSegments":3,"./lib/writeSegments":4}],2:[function(require,module,exports){
+function cp(obj) {
+  return JSON.parse(JSON.stringify(obj));
+}
+
 function move(cues, referenceCue) {
   var oldCue = null;
   cues.forEach(function(cue) {
@@ -69,10 +73,17 @@ function move(cues, referenceCue) {
 
   var delta = referenceCue.start - oldCue.start;
 
-  cues.forEach(function(cue) {
+  var newCues = cues.map(function(_cue) {
+    var cue = cp(_cue);
     cue.start += delta;
     cue.end += delta;
+    if (cue.start < 0)
+      throw new Error('Invalid move! One or more cues get a negative start time.');
+    return cue;
   });
+
+  // Operation successful, replace existing cue data.
+  newCues.forEach(function(cue, idx) { cues[idx] = cue; });
 }
 
 function moveAndScale(cues, refCue1, refCue2) {
@@ -102,12 +113,19 @@ function moveAndScale(cues, refCue1, refCue2) {
   var scaleMsPerMs = scaleDiff / (oldCue2.start - oldCue1.start);
 
   var oldCue1Start = oldCue1.start;
-  cues.forEach(function(cue) {
+  var newCues = cues.map(function(_cue) {
+    var cue = cp(_cue);
     var diff = moveDiff + (cue.start - oldCue1Start) * scaleMsPerMs;
     var cueLengthDiff = (cue.end - cue.start) * scaleMsPerMs;
     cue.start += diff;
     cue.end += diff + cueLengthDiff;
+    if (cue.start < 0)
+      throw new Error('Invalid move! One or more cues get a negative start time.');
+    return cue;
   });
+
+  // Operation successful, replace existing cue data.
+  newCues.forEach(function(cue, idx) { cues[idx] = cue; });
 }
 
 module.exports = {
