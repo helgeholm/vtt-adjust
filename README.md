@@ -183,3 +183,8 @@ __Example__
 var vtt = adjuster.toString();
 require('fs').writeFileSync("adjustedCaptions.vtt", vtt);
 ```
+
+## Notes
+
+In the event that a `move()` or `moveAndScale()` calls throw an error,
+the adjuster object will remain in the state it was before the call.
