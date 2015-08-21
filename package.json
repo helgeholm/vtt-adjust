@@ -8,7 +8,7 @@
   },
   "scripts": {
     "test": "node_modules/mocha/bin/mocha",
-    "prepublish": "node_modules/browserify/bin/cmd.js web.js -o build/vttAdjust.js"
+    "prepublish": "node_modules/browserify/bin/cmd.js web.js -o build/vtt-adjust.js && node_modules/uglify/bin/uglify -s build/vtt-adjust.js -o build/vtt-adjust.min.js"
   },
   "repository": {
     "type": "git",
@@ -28,6 +28,7 @@
   "devDependencies": {
     "browserify": "^11.0.1",
     "mocha": "^2.2.5",
-    "randy": "^1.5.1"
+    "randy": "^1.5.1",
+    "uglify": "^0.1.5"
   }
 }
