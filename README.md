@@ -4,6 +4,10 @@
 
 Utility for moving and stretching a .vtt (WebVTT) file.  Useful for correcting desync issues after a transcode or cropping.
 
+## The problem
+
+![Illustration of the Problem](the-problem.png?raw=true "Illustration of the Problem")
+
 ## Quick Example
 
 ```javascript
