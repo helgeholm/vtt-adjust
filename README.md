@@ -11,11 +11,17 @@ Utility for moving and stretching a .vtt (WebVTT) file.  Useful for correcting d
 
 var vttAdjust = require('vtt-adjust');
 
-var adjuster = vttAdjust('WEBVTT\\n\\n00:00:10.000 --> 00:00:15.000\\nHello\\n\\n00:00:20.000 --> 00:00:25.000\\nHallo\\n\\n00:00:30.000 --> 00:00:35.000\\nHullo');
+var adjuster = vttAdjust(
+  'WEBVTT\\n\\n'+
+  '00:00:10.000 --> 00:00:15.000\\nHello\\n\\n'+
+  '00:00:20.000 --> 00:00:25.000\\nHallo\\n\\n'+
+  '00:00:30.000 --> 00:00:35.000\\nHullo');
 
 console.log(JSON.stringify(adjuster.cues));
 /* Output: -------------------
-    '[{"id":0,"start":10000,"text":"Hello"},{"id":1,"start":20000,"text":"Hallo"},{"id":2,"start":30000,"text":"Hullo"}]',
+[{"id":0,"start":10000,"text":"Hello"},
+ {"id":1,"start":20000,"text":"Hallo"},
+ {"id":2,"start":30000,"text":"Hullo"}]
                             */
 
 adjuster.move(adjuster.cues[0], adjuster.cues[0].start + 2000);
