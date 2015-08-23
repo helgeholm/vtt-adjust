@@ -19,7 +19,10 @@
     "vtt",
     "adjust"
   ],
-  "author": "Helge S Holm",
+  "author": {
+    "name": "Helge Skogly Holm",
+    "email": "helge.holm@gmail.com"
+  },
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/deestan/vtt-adjust/issues"
