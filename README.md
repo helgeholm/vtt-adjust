@@ -8,7 +8,7 @@ Utility for moving and, if necessary, stretching a .vtt (WebVTT) file.  Useful f
 
 During a format conversion, 3 seconds of blank frames were trimmed from the classic motion picture "Revenge of the Ghost Dinosaur".  This resulted in all the captions now showing 3 seconds too early:
 
-![Illustration of the Problem](the-problem.png?raw=true "Illustration of the Problem")
+![Illustration of the Problem](img/the-problem.png?raw=true "Illustration of the Problem")
 
 We can make `vtt-adjust` correct all the caption cues by telling it the correct position of *one* cue:
 
