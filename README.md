@@ -10,17 +10,29 @@ During a format conversion, 3 seconds of blank frames were trimmed from the clas
 
 ![Illustration of the Problem](the-problem.png?raw=true "Illustration of the Problem")
 
+We can make `vtt-adjust` correct all the caption cues by telling it the correct position of *one* cue:
+
 ```javascript
 // Log and move all cues forward by 3 seconds.
 
 var vttAdjust = require('vtt-adjust');
 
-var adjuster = vttAdjust(
-  'WEBVTT\\n\\n'+
-  '00:14:10.000 --> 00:14:12.000\\nSally, the Masked Ranger... was me all along.\\n\\n'+
-  '00:14:13.000 --> 00:14:15.000\\nOh... Harry! I had no idea...\\n\\n'+
-  '00:14:16.000 --> 00:14:18.000\\nRarrrr!\\nOMG! Run!\\n\\n'+
-  '00:14:19.000 --> 00:14:21.000\\nAaaaahhh, my arm...');
+var adjuster = vttAdjust([
+  'WEBVTT',
+  '',
+  '00:14:10.000 --> 00:14:12.000',
+  'Sally, the Masked Ranger... was me all along.',
+  '',
+  '00:14:13.000 --> 00:14:15.000',
+  'Oh... Harry! I had no idea...',
+  '',
+  '00:14:16.000 --> 00:14:18.000',
+  'Rarrrr!',
+  'OMG! Run',
+  ''
+  '00:14:19.000 --> 00:14:21.000',
+  'Aaaaahhh, my arm...'
+].join('\\n'));
 
 console.log(adjuster.cues.map(JSON.stringify).join('\\n'));
 /* Output: -------------------
@@ -102,17 +114,15 @@ function moveClicked() {
 
 [vttAdjust](#vttAdjust)
 
-### Adjuster object
+<a name="vttAdjust" />
+### vttAdjust (vtt)
+
+Returns an adjuster object, with the following properties:
 
 * [cues](#cues)
 * [move](#move)
 * [moveAndScale](#moveAndScale)
 * [toString](#toString)
-
-<a name="vttAdjust" />
-### vttAdjust (vtt)
-
-Returns an adjuster object, documented below.
 
 __Arguments__
 
@@ -129,6 +139,8 @@ var adjuster = vttAdjust(vtt);
 ### adjuster.cues
 
 Property containing an array of all cues found in .vtt file.  Array elements are of the form `{ id: <opaque identifier>, start: <start time in milliseconds>, text: <text found in cue> }`.
+
+The `id`s of these cues are used as references when calling the `move` and `moveAndScale` functions.
 
 __Example__
 
@@ -198,7 +210,7 @@ Return a string representation of the (possibly) adjusted .vtt file.
 
 __Example__
 
-```
+```javascript
 var vtt = adjuster.toString();
 require('fs').writeFileSync("adjustedCaptions.vtt", vtt);
 ```
