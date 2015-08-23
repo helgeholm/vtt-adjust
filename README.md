@@ -32,13 +32,13 @@ var adjuster = vttAdjust([
   ''
   '00:14:19.000 --> 00:14:21.000',
   'Aaaaahhh, my arm...'
-].join('\\n'));
+].join('\n'));
 
-console.log(adjuster.cues.map(JSON.stringify).join('\\n'));
+console.log(adjuster.cues.map(JSON.stringify).join('\n'));
 /* Output: -------------------
 {"id":0,"start":850000,"text":"Sally, the Masked Ranger... was me all along."}
 {"id":1,"start":853000,"text":"Oh... Harry! I had no idea..."}
-{"id":2,"start":856000,"text":"Rarrrr!\\nOMG! Run!"}
+{"id":2,"start":856000,"text":"Rarrrr!\nOMG! Run!"}
 {"id":3,"start":859000,"text":"Aaaaahhh, my arm..."}
                             */
 
@@ -146,8 +146,8 @@ __Example__
 
 ```javascript
 console.log(adjuster.cues);
-//> [ { id: 0, start: 10000, text: 'bim\\nbum' },
-//>   { id: 1, start: 20000, text: 'bam\\nbom' },
+//> [ { id: 0, start: 10000, text: 'bim\nbum' },
+//>   { id: 1, start: 20000, text: 'bam\nbom' },
 //>   { id: 2, start: 30000, text: 'weh' } ]
 ```
 
