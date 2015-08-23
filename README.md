@@ -2,47 +2,54 @@
 
 [![NPM](https://nodei.co/npm/vtt-adjust.png)](https://nodei.co/npm/vtt-adjust/)
 
-Utility for moving and stretching a .vtt (WebVTT) file.  Useful for correcting desync issues after a transcode or cropping.
+Utility for moving and, if necessary, stretching a .vtt (WebVTT) file.  Useful for correcting desync issues after a transcode or cropping.
 
-## The problem
+## Example
+
+During a format conversion, 3 seconds of blank frames were trimmed from the classic motion picture "Revenge of the Ghost Dinosaur".  This resulted in all the captions now showing 3 seconds too early:
 
 ![Illustration of the Problem](the-problem.png?raw=true "Illustration of the Problem")
 
-## Quick Example
-
 ```javascript
-// Example, move all cues forward by 2 seconds:
+// Log and move all cues forward by 3 seconds.
 
 var vttAdjust = require('vtt-adjust');
 
 var adjuster = vttAdjust(
   'WEBVTT\\n\\n'+
-  '00:00:10.000 --> 00:00:15.000\\nHello\\n\\n'+
-  '00:00:20.000 --> 00:00:25.000\\nHallo\\n\\n'+
-  '00:00:30.000 --> 00:00:35.000\\nHullo');
+  '00:14:10.000 --> 00:14:12.000\\nSally, the Masked Ranger... was me all along.\\n\\n'+
+  '00:14:13.000 --> 00:14:15.000\\nOh... Harry! I had no idea...\\n\\n'+
+  '00:14:16.000 --> 00:14:18.000\\nRarrrr!\\nOMG! Run!\\n\\n'+
+  '00:14:19.000 --> 00:14:21.000\\nAaaaahhh, my arm...');
 
-console.log(JSON.stringify(adjuster.cues));
+console.log(adjuster.cues.map(JSON.stringify).join('\\n'));
 /* Output: -------------------
-[{"id":0,"start":10000,"text":"Hello"},
- {"id":1,"start":20000,"text":"Hallo"},
- {"id":2,"start":30000,"text":"Hullo"}]
+{"id":0,"start":850000,"text":"Sally, the Masked Ranger... was me all along."}
+{"id":1,"start":853000,"text":"Oh... Harry! I had no idea..."}
+{"id":2,"start":856000,"text":"Rarrrr!\\nOMG! Run!"}
+{"id":3,"start":859000,"text":"Aaaaahhh, my arm..."}
                             */
 
-adjuster.move(adjuster.cues[0], adjuster.cues[0].start + 2000);
+// Fix all cues by using the first cue as a reference:
+// It should start at 14 minutes, 13 seconds (=853000ms).
+adjuster.move(adjuster.cues[0], 853000);
 
 console.log(adjuster.toString());
 /* Output: -------------------
 WEBVTT
 
-00:00:12.000 --> 00:00:17.000
-Hello
+00:14:13.000 --> 00:14:15.000
+Sally... the Masked Ranger was me all along.
 
-00:00:22.000 --> 00:00:27.000
-Hallo
+00:14:16.000 --> 00:14:18.000
+Oh... Harry! I had no idea...
 
-00:00:32.000 --> 00:00:37.000
-Hullo
-                            */
+00:14:19.000 --> 00:14:21.000
+Rarrrr!
+OMG! Run!
+
+00:14:22.000 --> 00:14:24.000
+Aaaaahhh, my arm...
 ```
 
 <a name="download" />
@@ -127,8 +134,8 @@ __Example__
 
 ```javascript
 console.log(adjuster.cues);
-//> [ { id: 0, start: 10000, text: 'bim\nbum' },
-//>   { id: 1, start: 20000, text: 'bam\nbom' },
+//> [ { id: 0, start: 10000, text: 'bim\\nbum' },
+//>   { id: 1, start: 20000, text: 'bam\\nbom' },
 //>   { id: 2, start: 30000, text: 'weh' } ]
 ```
 
@@ -158,6 +165,8 @@ adjuster.move(cue.id, 31000);
 ### moveAndScale(refCueId1, newStart1, refCueId2, newStart2)
 
 Move and scale all cues equally, such that refCue1 and refCue2 end up in their new positions.
+
+If the video file has a subtly changed framerate, the cues will drift slowly out of sync during the video, which is not a problem that can be corrected with just moving all cues by a fixed amount.  For this problem, you can stretch or shrink the timeline to fit by giving two reference cues.  The further apart in the video the cues are, the more precise the result will be.
 
 Mathematically, each cue's position is mapped by a function `f(t) = t * a + c`
 where `c` and `a` are calculated such that the two reference cues end up in the
