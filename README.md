@@ -156,6 +156,8 @@ console.log(adjuster.cues);
 
 Move the reference cue to the new starting position, and all other cues by a correspinding amount.
 
+![Illustration of move()](img/move.png?raw=true "Illustration of move()")
+
 Mathematically, each cue's position is mapped by a function `f(t) = t + c`,
 where `c` is the difference between the reference cue's new and
 original positions.
@@ -177,6 +179,8 @@ adjuster.move(cue.id, 31000);
 ### moveAndScale(refCueId1, newStart1, refCueId2, newStart2)
 
 Move and scale all cues equally, such that refCue1 and refCue2 end up in their new positions.
+
+![Illustration of moveAndScale()](img/moveAndScale.png?raw=true "Illustration of moveAndScale()")
 
 If the video file has a subtly changed framerate, the cues will drift slowly out of sync during the video, which is not a problem that can be corrected with just moving all cues by a fixed amount.  For this problem, you can stretch or shrink the timeline to fit by giving two reference cues.  The further apart in the video the cues are, the more precise the result will be.
 
