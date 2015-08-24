@@ -182,7 +182,7 @@ Move and scale all cues equally, such that refCue1 and refCue2 end up in their n
 
 ![Illustration of moveAndScale()](img/moveAndScale.png?raw=true "Illustration of moveAndScale()")
 
-If the video file has a subtly changed framerate, the cues will drift slowly out of sync during the video, which is not a problem that can be corrected with just moving all cues by a fixed amount.  For this problem, you can stretch or shrink the timeline to fit by giving two reference cues.  The further apart in the video the cues are, the more precise the result will be.
+If the video file has a subtly changed framerate, the cues will drift slowly out of sync during the video, which is not a problem that can be corrected with just moving all cues by a fixed amount.  For this problem, you can stretch or shrink the timeline to fit by giving two reference cues.  The further apart in the video the reference cues are, the more precise the result will be.
 
 Mathematically, each cue's position is mapped by a function `f(t) = t * a + c`
 where `c` and `a` are calculated such that the two reference cues end up in the
