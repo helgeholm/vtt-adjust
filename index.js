@@ -15,6 +15,7 @@ module.exports = function readString(vtt) {
       return {
         id: idx,
         start: cue.start,
+        end: cue.end,
         text: cue.rest.join('\n')
       };
     });
